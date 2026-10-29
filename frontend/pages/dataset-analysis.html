@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dataset Analysis — NeuroPredict AI</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/dataset-analysis.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-icon">🧠</div>
+        <div class="brand-text">
+          <h1>NeuroPredict AI</h1>
+          <span>Dexathon 2026</span>
+        </div>
+      </div>
+      <ul class="nav-menu">
+        <li class="nav-item"><a href="dashboard.html"><span class="nav-icon">📊</span><span>Dashboard</span></a></li>
+        <li class="nav-item"><a href="patient-analysis.html"><span class="nav-icon">🩺</span><span>Patient Analysis</span></a></li>
+        <li class="nav-item active"><a href="dataset-analysis.html"><span class="nav-icon">📁</span><span>Dataset Analysis</span></a></li>
+        <li class="nav-item"><a href="model-insights.html"><span class="nav-icon">🔬</span><span>Model Insights</span></a></li>
+        <li class="nav-item"><a href="research.html"><span class="nav-icon">📖</span><span>Research</span></a></li>
+      </ul>
+      <div class="sidebar-footer">
+        <div>Team: <span class="team-tag">UNFAZED (DEX26341)</span></div>
+        <div>Healthcare Analytics Platform</div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-wrapper">
+      <header class="top-bar">
+        <div class="page-title">
+          <h2>Dataset Quality & Exploratory Analysis</h2>
+        </div>
+        <div class="top-actions">
+          <span id="active-filename-badge" class="status-badge">
+            <span class="status-dot"></span> <span id="active-filename-text">Loading...</span>
+          </span>
+        </div>
+      </header>
+
+      <div class="content-body">
+        <div class="disclaimer-banner">
+          <span>🛡️</span>
+          <div>
+            <strong>Dataset Quality Assurance:</strong>
+            Explore real tabular statistics, detect missing values, and verify features without data fabrication.
+          </div>
+        </div>
+
+        <!-- File Upload Section -->
+        <div class="card" style="margin-bottom: 28px;">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">Upload Clinical Research Dataset</h3>
+              <p class="card-desc">Accepts CSV files with patient records, cognitive scores, or clinical measurements.</p>
+            </div>
+          </div>
+          
+          <div id="dropzone" class="upload-dropzone">
+            <input type="file" id="file-input" accept=".csv" style="display: none;">
+            <div class="upload-icon">📤</div>
+            <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 6px;">Click or drag CSV file here to upload</h4>
+            <p style="font-size: 0.85rem; color: #64748b;">Supported format: .csv (up to 50MB). Auto-detects target labels and features.</p>
+          </div>
+          <div id="upload-status" style="display: none; padding: 12px; border-radius: 8px; font-size: 0.9rem;"></div>
+        </div>
+
+        <!-- Dataset Summary Stats -->
+        <div class="grid-cards">
+          <div class="card stat-card">
+            <div class="stat-icon">📈</div>
+            <div class="stat-info">
+              <div class="stat-label">Total Rows</div>
+              <div class="stat-value" id="meta-rows">—</div>
+            </div>
+          </div>
+          <div class="card stat-card">
+            <div class="stat-icon cyan">📊</div>
+            <div class="stat-info">
+              <div class="stat-label">Total Columns</div>
+              <div class="stat-value" id="meta-cols">—</div>
+            </div>
+          </div>
+          <div class="card stat-card">
+            <div class="stat-icon emerald">❓</div>
+            <div class="stat-info">
+              <div class="stat-label">Missing Cells</div>
+              <div class="stat-value" id="meta-missing">—</div>
+            </div>
+          </div>
+          <div class="card stat-card">
+            <div class="stat-icon purple">📑</div>
+            <div class="stat-info">
+              <div class="stat-label">Duplicate Rows</div>
+              <div class="stat-value" id="meta-duplicates">—</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dataset Table Preview -->
+        <div class="card" style="margin-bottom: 28px;">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">Dataset Preview (First 10 Records)</h3>
+              <p class="card-desc">Actual tabular rows loaded directly from backend storage.</p>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="custom-table" id="preview-table">
+              <thead><tr id="preview-header"><th>Loading headers...</th></tr></thead>
+              <tbody id="preview-body"><tr><td>Loading data...</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Column Analysis Table -->
+        <div class="card" style="margin-bottom: 28px;">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">Column Metadata & Missing Value Profile</h3>
+              <p class="card-desc">Identifies numerical vs categorical features and missing percentage per feature.</p>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="custom-table" id="columns-table">
+              <thead>
+                <tr>
+                  <th>Column Name</th>
+                  <th>Type</th>
+                  <th>Data Type</th>
+                  <th>Missing Count</th>
+                  <th>Missing (%)</th>
+                  <th>Unique Values</th>
+                  <th>Role</th>
+                </tr>
+              </thead>
+              <tbody id="columns-body">
+                <tr><td colspan="7">Loading column metadata...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Correlation Heatmap -->
+        <div class="card" style="margin-bottom: 28px;">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">Numerical Feature Correlation Heatmap</h3>
+              <p class="card-desc">Real Pearson correlation coefficients among numerical clinical features.</p>
+            </div>
+          </div>
+          <div class="correlation-heatmap-container" id="correlation-container">
+            <p style="text-align: center; color: #64748b;">Computing correlation matrix...</p>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script src="../js/api.js"></script>
+  <script src="../js/dataset-analysis.js"></script>
+</body>
+</html>

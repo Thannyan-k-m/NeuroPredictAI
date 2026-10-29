@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patient Analysis — NeuroPredict AI</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/patient-analysis.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-icon">🧠</div>
+        <div class="brand-text">
+          <h1>NeuroPredict AI</h1>
+          <span>Dexathon 2026</span>
+        </div>
+      </div>
+      <ul class="nav-menu">
+        <li class="nav-item"><a href="dashboard.html"><span class="nav-icon">📊</span><span>Dashboard</span></a></li>
+        <li class="nav-item active"><a href="patient-analysis.html"><span class="nav-icon">🩺</span><span>Patient Analysis</span></a></li>
+        <li class="nav-item"><a href="dataset-analysis.html"><span class="nav-icon">📁</span><span>Dataset Analysis</span></a></li>
+        <li class="nav-item"><a href="model-insights.html"><span class="nav-icon">🔬</span><span>Model Insights</span></a></li>
+        <li class="nav-item"><a href="research.html"><span class="nav-icon">📖</span><span>Research</span></a></li>
+      </ul>
+      <div class="sidebar-footer">
+        <div>Team: <span class="team-tag">UNFAZED (DEX26341)</span></div>
+        <div>Healthcare Analytics Platform</div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-wrapper">
+      <header class="top-bar">
+        <div class="page-title">
+          <h2>Clinical Patient Risk Inference</h2>
+        </div>
+        <div class="top-actions">
+          <span class="status-badge"><span class="status-dot"></span> Ready for Assessment</span>
+        </div>
+      </header>
+
+      <div class="content-body">
+        <!-- Mandatory Safety Disclaimer -->
+        <div class="disclaimer-banner">
+          <span>🛡️</span>
+          <div>
+            <strong>Healthcare Research Notice:</strong>
+            NeuroPredict AI provides preliminary research predictions and does not replace professional medical evaluation. This is a research prototype, not a medical diagnostic device.
+          </div>
+        </div>
+
+        <!-- Form Card -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">Structured Patient Assessment</h3>
+              <p class="card-desc">Form automatically adapts to columns present in the active dataset schema.</p>
+            </div>
+            <div style="display: flex; gap: 12px; align-items: center;">
+              <label for="select-model" style="font-size: 0.85rem; font-weight: 600;">Classifier:</label>
+              <select id="select-model" style="padding: 6px 12px; border-radius: 6px; border: 1px solid var(--border-color); font-weight: 600;">
+                <option value="Random Forest">Random Forest (Ensemble)</option>
+                <option value="XGBoost">XGBoost (High Performance)</option>
+                <option value="Logistic Regression">Logistic Regression (Baseline)</option>
+              </select>
+            </div>
+          </div>
+
+          <form id="patient-form">
+            <div style="margin-bottom: 18px;">
+              <label style="font-size: 0.85rem; font-weight: 600; color: #64748b; text-transform: uppercase;">1. Demographic Information</label>
+              <div class="patient-form-grid" id="demographic-section" style="margin-top: 10px;">
+                <!-- Populated dynamically or defaults -->
+              </div>
+            </div>
+
+            <div style="margin-bottom: 18px;">
+              <label style="font-size: 0.85rem; font-weight: 600; color: #64748b; text-transform: uppercase;">2. Cognitive Assessment Scores</label>
+              <div class="patient-form-grid" id="cognitive-section" style="margin-top: 10px;">
+                <!-- Populated dynamically -->
+              </div>
+            </div>
+
+            <div style="margin-bottom: 24px;">
+              <label style="font-size: 0.85rem; font-weight: 600; color: #64748b; text-transform: uppercase;">3. Clinical & Biomarker Measurements</label>
+              <div class="patient-form-grid" id="biomarker-section" style="margin-top: 10px;">
+                <!-- Populated dynamically -->
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 14px; align-items: center;">
+              <button type="submit" id="btn-predict" class="btn btn-primary" style="padding: 12px 28px;">
+                ⚡ Generate Risk Prediction
+              </button>
+              <button type="button" id="btn-sample-data" class="btn btn-secondary">
+                Load Sample Clinical Case
+              </button>
+              <span id="predict-loading" style="display: none; align-items: center; gap: 8px; font-size: 0.88rem; color: #0284c7;">
+                <span class="loading-spinner"></span> Running inference & SHAP attributions...
+              </span>
+            </div>
+          </form>
+        </div>
+
+        <!-- Result Container -->
+        <div id="result-container" class="result-container">
+          <div class="result-card">
+            <div class="result-header">
+              <div>
+                <span style="font-size: 0.82rem; color: #64748b; text-transform: uppercase; font-weight: 600;">Model Inference Output</span>
+                <h3 style="font-size: 1.4rem; font-weight: 800; color: #0f172a; margin-top: 4px;" id="res-model-name">—</h3>
+              </div>
+              <div id="res-risk-badge" class="risk-badge low">
+                <span>Predicted: <strong id="res-class">—</strong></span>
+              </div>
+            </div>
+
+            <!-- Probability Bar -->
+            <div class="prob-meter-wrapper">
+              <div style="display: flex; justify-content: space-between; font-size: 0.88rem; font-weight: 600; margin-bottom: 6px;">
+                <span>Estimated Risk Probability</span>
+                <span id="res-probability">—</span>
+              </div>
+              <div class="prob-meter-bar">
+                <div id="res-prob-fill" class="prob-meter-fill"></div>
+              </div>
+            </div>
+
+            <!-- Mandatory Research Disclaimer Box -->
+            <div class="disclaimer-banner warning" style="margin: 20px 0;">
+              <span>⚠️</span>
+              <div>
+                <strong id="res-disclaimer">This result is a preliminary research prediction and is not a medical diagnosis.</strong>
+              </div>
+            </div>
+
+            <!-- SHAP Feature Contributions Grid -->
+            <div style="margin-top: 24px;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 14px;">SHAP Feature Contribution & Attribution Breakdown</h4>
+              <div style="height: 280px; position: relative;">
+                <canvas id="chart-shap-contributions"></canvas>
+              </div>
+              <p style="font-size: 0.78rem; color: #64748b; margin-top: 8px;">
+                * Positive values indicate clinical features pushing toward elevated risk classification; negative attributions indicate protective factors.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Prediction Audit History -->
+        <div class="card" style="margin-top: 32px;">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">Recent Prediction Audit Log (SQLite)</h3>
+              <p class="card-desc">Chronological history of recent patient predictions.</p>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="custom-table" id="history-table">
+              <thead>
+                <tr>
+                  <th>Prediction ID</th>
+                  <th>Patient Ref</th>
+                  <th>Model Used</th>
+                  <th>Predicted Class</th>
+                  <th>Probability</th>
+                  <th>Validation Status</th>
+                  <th>Timestamp</th>
+                </tr>
+              </thead>
+              <tbody id="history-body">
+                <tr><td colspan="7">Loading prediction history...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script src="../js/api.js"></script>
+  <script src="../js/patient-analysis.js"></script>
+</body>
+</html>

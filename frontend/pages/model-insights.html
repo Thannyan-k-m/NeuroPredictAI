@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Model Insights & Explainability — NeuroPredict AI</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/model-insights.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-icon">🧠</div>
+        <div class="brand-text">
+          <h1>NeuroPredict AI</h1>
+          <span>Dexathon 2026</span>
+        </div>
+      </div>
+      <ul class="nav-menu">
+        <li class="nav-item"><a href="dashboard.html"><span class="nav-icon">📊</span><span>Dashboard</span></a></li>
+        <li class="nav-item"><a href="patient-analysis.html"><span class="nav-icon">🩺</span><span>Patient Analysis</span></a></li>
+        <li class="nav-item"><a href="dataset-analysis.html"><span class="nav-icon">📁</span><span>Dataset Analysis</span></a></li>
+        <li class="nav-item active"><a href="model-insights.html"><span class="nav-icon">🔬</span><span>Model Insights</span></a></li>
+        <li class="nav-item"><a href="research.html"><span class="nav-icon">📖</span><span>Research</span></a></li>
+      </ul>
+      <div class="sidebar-footer">
+        <div>Team: <span class="team-tag">UNFAZED (DEX26341)</span></div>
+        <div>Healthcare Analytics Platform</div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-wrapper">
+      <header class="top-bar">
+        <div class="page-title">
+          <h2>Machine Learning Benchmarks & SHAP Insights</h2>
+        </div>
+        <div class="top-actions">
+          <button id="btn-train-selected" class="btn btn-cyan btn-sm">⚡ Train Selected Model</button>
+        </div>
+      </header>
+
+      <div class="content-body">
+        <div class="disclaimer-banner">
+          <span>🛡️</span>
+          <div>
+            <strong>Transparent ML Benchmarks:</strong>
+            All metrics shown are computed strictly on unseen holdout test sets without data leakage. Feature importance indicates statistical relevance, not clinical causality.
+          </div>
+        </div>
+
+        <!-- Model Selection Header -->
+        <div class="card" style="margin-bottom: 24px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+            <div>
+              <label for="model-selector" style="font-weight: 700; font-size: 0.95rem; margin-right: 12px;">Active Model:</label>
+              <select id="model-selector" style="padding: 8px 16px; border-radius: 6px; border: 1px solid var(--border-color); font-weight: 600; font-size: 0.9rem;">
+                <option value="Random Forest">Random Forest (Ensemble)</option>
+                <option value="XGBoost">XGBoost (High Performance)</option>
+                <option value="Logistic Regression">Logistic Regression (Baseline)</option>
+              </select>
+            </div>
+            <div id="model-training-status" style="font-size: 0.88rem; color: #64748b;">
+              <!-- Dynamic status -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Metric Stat Cards for Selected Model -->
+        <div class="grid-cards">
+          <div class="card stat-card">
+            <div class="stat-icon">🎯</div>
+            <div class="stat-info">
+              <div class="stat-label">Holdout Accuracy</div>
+              <div class="stat-value" id="val-accuracy">—</div>
+            </div>
+          </div>
+          <div class="card stat-card">
+            <div class="stat-icon cyan">⚖️</div>
+            <div class="stat-info">
+              <div class="stat-label">F1-Score (Macro)</div>
+              <div class="stat-value" id="val-f1">—</div>
+            </div>
+          </div>
+          <div class="card stat-card">
+            <div class="stat-icon emerald">📈</div>
+            <div class="stat-info">
+              <div class="stat-label">Precision & Recall</div>
+              <div class="stat-value" id="val-prec-rec" style="font-size: 1.25rem;">—</div>
+            </div>
+          </div>
+          <div class="card stat-card">
+            <div class="stat-icon purple">📊</div>
+            <div class="stat-info">
+              <div class="stat-label">ROC-AUC Score</div>
+              <div class="stat-value" id="val-roc">—</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Grid: Model Comparison Chart & Confusion Matrix -->
+        <div class="insights-top-grid">
+          <!-- Multi-model Comparison Bar Chart -->
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">Cross-Architecture Performance Benchmark</h3>
+                <p class="card-desc">Comparing Logistic Regression, Random Forest, and XGBoost on holdout evaluation data.</p>
+              </div>
+            </div>
+            <div style="height: 300px; position: relative;">
+              <canvas id="chart-models-benchmark"></canvas>
+            </div>
+          </div>
+
+          <!-- Confusion Matrix Card -->
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">Holdout Confusion Matrix</h3>
+                <p class="card-desc">Actual vs Predicted classification counts on test cohort.</p>
+              </div>
+            </div>
+            <div id="cm-container" style="padding: 12px 0;">
+              <!-- Rendered dynamically -->
+            </div>
+            <div style="font-size: 0.8rem; color: #64748b; text-align: center;">
+              Sensitivity: <strong id="val-sensitivity">—</strong> | Specificity: <strong id="val-specificity">—</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Global SHAP Feature Importance -->
+        <div class="card" style="margin-bottom: 28px;">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">Global Feature Importance & Interpretability (SHAP)</h3>
+              <p class="card-desc">Relative ranking of top clinical biomarkers and cognitive scores influencing classification.</p>
+            </div>
+          </div>
+          <div style="height: 360px; position: relative;">
+            <canvas id="chart-global-importance"></canvas>
+          </div>
+          <p style="font-size: 0.78rem; color: #64748b; margin-top: 12px;">
+            * Important: High statistical importance highlights variables associated with classification decisions in the research cohort, but does not imply medical causation.
+          </p>
+        </div>
+
+        <!-- Model Limitations & Governance Card -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">Model Limitations, Governance & Methodological Integrity</h3>
+              <p class="card-desc">Transparency parameters and adherence to Dexathon 2026 specifications.</p>
+            </div>
+          </div>
+          <ul style="font-size: 0.88rem; color: #475569; line-height: 1.7; padding-left: 20px;">
+            <li><strong>Zero Longitudinal Data Leakage:</strong> Patient visits are partitioned using <code>GroupShuffleSplit</code> by subject identifier to guarantee no cross-contamination between training and holdout evaluation sets.</li>
+            <li><strong>Preprocessing Pipeline:</strong> Imputation (median for numerical, most frequent for categorical) and standardization are fit strictly on training splits.</li>
+            <li><strong>Research Prototype Boundary:</strong> Predictions generated are algorithmic risk stratifications and are not validated for independent medical diagnosis or intervention decisions.</li>
+          </ul>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script src="../js/api.js"></script>
+  <script src="../js/model-insights.js"></script>
+</body>
+</html>

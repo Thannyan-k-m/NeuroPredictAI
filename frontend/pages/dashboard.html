@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — NeuroPredict AI</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <!-- Chart.js for real clinical visualizations -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-icon">🧠</div>
+        <div class="brand-text">
+          <h1>NeuroPredict AI</h1>
+          <span>Dexathon 2026</span>
+        </div>
+      </div>
+      <ul class="nav-menu">
+        <li class="nav-item active"><a href="dashboard.html"><span class="nav-icon">📊</span><span>Dashboard</span></a></li>
+        <li class="nav-item"><a href="patient-analysis.html"><span class="nav-icon">🩺</span><span>Patient Analysis</span></a></li>
+        <li class="nav-item"><a href="dataset-analysis.html"><span class="nav-icon">📁</span><span>Dataset Analysis</span></a></li>
+        <li class="nav-item"><a href="model-insights.html"><span class="nav-icon">🔬</span><span>Model Insights</span></a></li>
+        <li class="nav-item"><a href="research.html"><span class="nav-icon">📖</span><span>Research</span></a></li>
+      </ul>
+      <div class="sidebar-footer">
+        <div>Team: <span class="team-tag">UNFAZED (DEX26341)</span></div>
+        <div>Healthcare Analytics Platform</div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-wrapper">
+      <header class="top-bar">
+        <div class="page-title">
+          <h2>Clinical Analytics Dashboard</h2>
+        </div>
+        <div class="top-actions">
+          <span id="backend-status-badge" class="status-badge">
+            <span class="status-dot"></span> Backend Active
+          </span>
+          <a href="patient-analysis.html" class="btn btn-primary btn-sm">+ New Patient Analysis</a>
+        </div>
+      </header>
+
+      <div class="content-body">
+        <!-- Safety Banner -->
+        <div class="disclaimer-banner">
+          <span>🛡️</span>
+          <div>
+            <strong>Research Prototype Notice:</strong>
+            NeuroPredict AI provides preliminary research predictions and does not replace professional medical evaluation.
+          </div>
+        </div>
+
+        <!-- Quick Actions Banner -->
+        <div class="actions-banner">
+          <div>
+            <h3>Active Clinical Research Cohort</h3>
+            <p id="cohort-status-text">Synchronizing dataset and model metrics with backend...</p>
+          </div>
+          <div class="actions-buttons">
+            <a href="dataset-analysis.html" class="btn btn-secondary">Upload Dataset</a>
+            <a href="model-insights.html" class="btn btn-cyan">Train / Compare Models</a>
+          </div>
+        </div>
+
+        <!-- Metric Stat Cards -->
+        <div class="grid-cards">
+          <div class="card stat-card">
+            <div class="stat-icon">📑</div>
+            <div class="stat-info">
+              <div class="stat-label">Total Records</div>
+              <div class="stat-value" id="stat-records">—</div>
+            </div>
+          </div>
+
+          <div class="card stat-card">
+            <div class="stat-icon cyan">🧬</div>
+            <div class="stat-info">
+              <div class="stat-label">Available Features</div>
+              <div class="stat-value" id="stat-features">—</div>
+            </div>
+          </div>
+
+          <div class="card stat-card">
+            <div class="stat-icon emerald">🎯</div>
+            <div class="stat-info">
+              <div class="stat-label">Trained Models</div>
+              <div class="stat-value" id="stat-models">—</div>
+            </div>
+          </div>
+
+          <div class="card stat-card">
+            <div class="stat-icon purple">⚡</div>
+            <div class="stat-info">
+              <div class="stat-label">Training Status</div>
+              <div class="stat-value" id="stat-training-status" style="font-size: 1.25rem; font-weight:700;">Idle</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Charts Grid -->
+        <div class="charts-grid">
+          <!-- Class Distribution -->
+          <div class="card chart-card">
+            <div class="card-header">
+              <div>
+                <h4 class="card-title">Dataset Class Distribution</h4>
+                <div class="card-desc">Stratified balance of risk / diagnostic classes</div>
+              </div>
+            </div>
+            <div class="chart-card-body">
+              <canvas id="chart-class-distribution"></canvas>
+            </div>
+          </div>
+
+          <!-- Model Performance Comparison -->
+          <div class="card chart-card">
+            <div class="card-header">
+              <div>
+                <h4 class="card-title">Model Performance Comparison</h4>
+                <div class="card-desc">Holdout test accuracy, precision, recall & F1</div>
+              </div>
+            </div>
+            <div class="chart-card-body">
+              <canvas id="chart-model-comparison"></canvas>
+            </div>
+          </div>
+
+          <!-- Age Distribution -->
+          <div class="card chart-card">
+            <div class="card-header">
+              <div>
+                <h4 class="card-title">Patient Age Distribution</h4>
+                <div class="card-desc">Cohort demographic distribution (years)</div>
+              </div>
+            </div>
+            <div class="chart-card-body">
+              <canvas id="chart-age-distribution"></canvas>
+            </div>
+          </div>
+
+          <!-- Cognitive Score (MMSE) Distribution -->
+          <div class="card chart-card">
+            <div class="card-header">
+              <div>
+                <h4 class="card-title">Cognitive Score Distribution (MMSE)</h4>
+                <div class="card-desc">Mini-Mental State Examination frequency</div>
+              </div>
+            </div>
+            <div class="chart-card-body">
+              <canvas id="chart-cognitive-distribution"></canvas>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script src="../js/api.js"></script>
+  <script src="../js/dashboard.js"></script>
+</body>
+</html>

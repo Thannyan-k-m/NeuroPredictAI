@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Research & Clinical Governance — NeuroPredict AI</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .research-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+      margin-bottom: 28px;
+    }
+    .citation-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-left: 4px solid var(--primary-color);
+      border-radius: 6px;
+      padding: 16px;
+      margin: 12px 0;
+      font-size: 0.85rem;
+      color: #334155;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-icon">🧠</div>
+        <div class="brand-text">
+          <h1>NeuroPredict AI</h1>
+          <span>Dexathon 2026</span>
+        </div>
+      </div>
+      <ul class="nav-menu">
+        <li class="nav-item"><a href="dashboard.html"><span class="nav-icon">📊</span><span>Dashboard</span></a></li>
+        <li class="nav-item"><a href="patient-analysis.html"><span class="nav-icon">🩺</span><span>Patient Analysis</span></a></li>
+        <li class="nav-item"><a href="dataset-analysis.html"><span class="nav-icon">📁</span><span>Dataset Analysis</span></a></li>
+        <li class="nav-item"><a href="model-insights.html"><span class="nav-icon">🔬</span><span>Model Insights</span></a></li>
+        <li class="nav-item active"><a href="research.html"><span class="nav-icon">📖</span><span>Research</span></a></li>
+      </ul>
+      <div class="sidebar-footer">
+        <div>Team: <span class="team-tag">UNFAZED (DEX26341)</span></div>
+        <div>Healthcare Analytics Platform</div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-wrapper">
+      <header class="top-bar">
+        <div class="page-title">
+          <h2>Clinical Research Methodology & Governance</h2>
+        </div>
+      </header>
+
+      <div class="content-body">
+        <!-- Mandatory Healthcare Notice -->
+        <div class="disclaimer-banner">
+          <span>🛡️</span>
+          <div>
+            <strong>Research Statement:</strong>
+            NeuroPredict AI provides preliminary research predictions and does not replace professional medical evaluation. It is developed solely for algorithmic investigation and clinical research analytics.
+          </div>
+        </div>
+
+        <div class="research-grid">
+          <div class="card">
+            <h3 class="card-title">1. Clinical Motivation & Cognitive Markers</h3>
+            <p class="card-desc" style="margin-bottom: 14px;">Early identification of cognitive decline progression.</p>
+            <p style="font-size: 0.88rem; color: #475569; line-height: 1.6;">
+              Alzheimer's Disease progression is characterized by gradual atrophy of cortical structures coupled with progressive cognitive impairment. The Mini-Mental State Examination (MMSE) and Clinical Dementia Rating (CDR) represent standard clinical assessments. Combining these cognitive tests with volumetric MRI indicators (Normalized Whole Brain Volume, eTIV) substantially elevates classification sensitivity.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3 class="card-title">2. Data Leakage Prevention</h3>
+            <p class="card-desc" style="margin-bottom: 14px;">Methodological integrity across longitudinal cohorts.</p>
+            <p style="font-size: 0.88rem; color: #475569; line-height: 1.6;">
+              In multi-visit longitudinal studies (e.g. ADNI, OASIS), multiple records belong to the same patient. Standard random K-Fold splits introduce severe data leakage because earlier visits contaminate training and testing folds. NeuroPredict AI strictly enforces patient-level <code>GroupShuffleSplit</code>, ensuring that all visits for any given subject remain exclusively within either the training or holdout test split.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3 class="card-title">3. Model Architectures & Calibration</h3>
+            <p class="card-desc" style="margin-bottom: 14px;">Benchmarked predictive paradigms.</p>
+            <p style="font-size: 0.88rem; color: #475569; line-height: 1.6;">
+              We implement and evaluate three distinct algorithmic classes:
+              <br>• <strong>Logistic Regression:</strong> Linear baseline with L2 regularization and balanced class weights.
+              <br>• <strong>Random Forest:</strong> Non-linear bagging ensemble of decision trees resilient to non-normal distributions.
+              <br>• <strong>XGBoost:</strong> Gradient boosted decision trees optimized for subtle non-linear interactions across high-dimensional biomarker profiles.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3 class="card-title">4. Explainable AI (SHAP Framework)</h3>
+            <p class="card-desc" style="margin-bottom: 14px;">Mathematical interpretability for clinical audits.</p>
+            <p style="font-size: 0.88rem; color: #475569; line-height: 1.6;">
+              Using Shapley Additive Explanations (SHAP), the system computes cooperative game theory attributions allocating exact credit to each individual feature for every patient prediction. This illuminates whether a prediction was driven by cognitive score changes, structural brain volume atrophy, or cardiovascular risk factors.
+            </p>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 class="card-title">References & Academic Foundations</h3>
+          <div class="citation-box">
+            <strong>OASIS Brains:</strong> Open Access Series of Imaging Studies: Longitudinal MRI Data in Nondemented and Demented Older Adults. Marcus, D.S. et al., <em>Journal of Cognitive Neuroscience</em>, 2010.
+          </div>
+          <div class="citation-box">
+            <strong>ADNI:</strong> Alzheimer's Disease Neuroimaging Initiative: A One-Stop Shop for Biomarker Discovery in Aging. Petersen, R.C. et al., <em>Neurology</em>, 2010.
+          </div>
+          <div class="citation-box">
+            <strong>SHAP:</strong> A Unified Approach to Interpreting Model Predictions. Lundberg, S.M. & Lee, S.I., <em>Advances in Neural Information Processing Systems (NeurIPS)</em>, 2017.
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="../js/api.js"></script>
+</body>
+</html>

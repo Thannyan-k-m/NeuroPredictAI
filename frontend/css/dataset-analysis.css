@@ -1,0 +1,44 @@
+/* Dataset Analysis Styles */
+.upload-dropzone {
+  border: 2px dashed #cbd5e1;
+  border-radius: var(--radius-lg);
+  padding: 36px 24px;
+  text-align: center;
+  background-color: #f8fafc;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-bottom: 24px;
+}
+
+.upload-dropzone:hover, .upload-dropzone.dragover {
+  border-color: var(--secondary-color);
+  background-color: #ecfeff;
+}
+
+.upload-icon {
+  font-size: 2.4rem;
+  color: var(--secondary-color);
+  margin-bottom: 12px;
+}
+
+.correlation-heatmap-container {
+  overflow-x: auto;
+  padding: 16px 0;
+}
+
+.heatmap-table {
+  border-collapse: collapse;
+  font-size: 0.78rem;
+  margin: 0 auto;
+}
+
+.heatmap-table th, .heatmap-table td {
+  padding: 10px 12px;
+  text-align: center;
+  border: 1px solid #e2e8f0;
+}
+
+.heatmap-table th {
+  background-color: #f1f5f9;
+  font-weight: 600;
+}

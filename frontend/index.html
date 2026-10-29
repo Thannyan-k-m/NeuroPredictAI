@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NeuroPredict AI — Healthcare Analytics & Clinical ML</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .hero-container {
+      max-width: 1000px;
+      margin: 60px auto;
+      text-align: center;
+      padding: 0 24px;
+    }
+    .hero-title {
+      font-size: 2.8rem;
+      font-weight: 800;
+      color: #0b132b;
+      line-height: 1.2;
+      margin-bottom: 18px;
+    }
+    .hero-title span {
+      background: linear-gradient(135deg, #0284c7, #06b6d4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-sub {
+      font-size: 1.15rem;
+      color: #64748b;
+      max-width: 680px;
+      margin: 0 auto 36px auto;
+      line-height: 1.6;
+    }
+    .hero-cta {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 60px;
+    }
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+      text-align: left;
+    }
+    .feature-card {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+      transition: all 0.2s ease;
+    }
+    .feature-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+    }
+    .feature-card-icon {
+      font-size: 2rem;
+      margin-bottom: 14px;
+      color: #0284c7;
+    }
+    .feature-card h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 8px;
+    }
+    .feature-card p {
+      font-size: 0.9rem;
+      color: #64748b;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <div class="hero-container">
+    <div style="display:inline-flex; align-items:center; gap:8px; background:#eff6ff; color:#0284c7; padding:6px 14px; border-radius:9999px; font-size:0.84rem; font-weight:600; margin-bottom:20px;">
+      <span>Dexathon 2026</span> • <span>Team UNFAZED (DEX26341)</span>
+    </div>
+    
+    <h1 class="hero-title">Predictive Healthcare Analytics for <span>Alzheimer's Risk</span></h1>
+    <p class="hero-sub">
+      A transparent, leakage-free machine learning platform utilizing clinical assessments, demographic markers, and neuroimaging indicators with SHAP-driven explainability.
+    </p>
+
+    <div class="hero-cta">
+      <a href="pages/dashboard.html" class="btn btn-primary" style="padding: 14px 28px; font-size: 1rem;">Launch Dashboard →</a>
+      <a href="pages/dataset-analysis.html" class="btn btn-secondary" style="padding: 14px 28px; font-size: 1rem;">Analyze Dataset</a>
+    </div>
+
+    <div class="disclaimer-banner" style="text-align: left; margin-bottom: 40px;">
+      <span style="font-size: 1.2rem;">🛡️</span>
+      <div>
+        <strong>Healthcare Safety Notice:</strong>
+        NeuroPredict AI provides preliminary research predictions and does not replace professional medical evaluation. It is an algorithmic research platform, not a medical diagnostic device.
+      </div>
+    </div>
+
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-card-icon">📊</div>
+        <h3>Dataset Quality & EDA</h3>
+        <p>Inspect real data distributions, missing value profiles, duplicate checks, and correlation heatmaps without data fabrication.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-card-icon">🧠</div>
+        <h3>Trained ML Architectures</h3>
+        <p>Benchmark Logistic Regression, Random Forest, and XGBoost with patient-level splitting to prevent longitudinal leakage.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-card-icon">🩺</div>
+        <h3>Dynamic Patient Analysis</h3>
+        <p>Interactive patient assessment forms automatically adapting to dataset features with real-time class probabilities.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-card-icon">🔍</div>
+        <h3>SHAP Explainability</h3>
+        <p>Transparent feature attributions and global importance ranking providing clinicians with algorithmic interpretability.</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
